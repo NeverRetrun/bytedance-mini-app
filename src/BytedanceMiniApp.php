@@ -32,7 +32,8 @@ class BytedanceMiniApp
         string $appId,
         string $secret,
         ?LoggerInterface $logger = null,
-        ?CacheInterface $cache = null
+        ?CacheInterface $cache = null,
+        bool $isDebug = false
     )
     {
         $this->kernel = (new Kernel(
@@ -41,6 +42,10 @@ class BytedanceMiniApp
         ))
             ->withLoggerFormLoggerInterface($logger)
             ->withCache($cache);
+
+        if ($isDebug) {
+            $this->kernel->enableDebug();
+        }
     }
 
     protected function getInstance(string $name): Manager
