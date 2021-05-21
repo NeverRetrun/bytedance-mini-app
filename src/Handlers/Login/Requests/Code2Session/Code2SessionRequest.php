@@ -12,9 +12,9 @@ class Code2SessionRequest extends Request
         return Code2SessionResponse::createFromArray($response);
     }
 
-    public function sendRequest(...$argument): array
+    public function sendRequest($arguments): array
     {
-        [$code] = $argument;
+        [$code] = $arguments;
 
         return $this->http->get(
             'https://developer.toutiao.com/api/apps/jscode2session',

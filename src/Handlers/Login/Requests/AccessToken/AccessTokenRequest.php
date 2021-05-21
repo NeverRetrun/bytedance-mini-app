@@ -13,7 +13,7 @@ class AccessTokenRequest extends Request
         return AccessTokenResponse::createFromArray($response);
     }
 
-    public function sendRequest(...$arguments): array
+    public function sendRequest($arguments): array
     {
         return $this->http->get(
             'https://developer.toutiao.com/api/apps/token',

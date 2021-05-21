@@ -28,7 +28,7 @@ abstract class Request implements OpenApiInterface
         $this->app = $app;
     }
 
-    abstract public function sendRequest(...$arguments): array;
+    abstract public function sendRequest($arguments): array;
 
     public function handle(...$arguments): Response
     {

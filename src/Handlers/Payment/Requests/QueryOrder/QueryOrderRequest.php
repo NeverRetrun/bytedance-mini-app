@@ -15,7 +15,7 @@ class QueryOrderRequest extends Request
         return QueryOrderResponse::createFromArray($response);
     }
 
-    public function sendRequest(...$arguments): array
+    public function sendRequest($arguments): array
     {
         [$outOrderNo, $thirdPartyId] = $arguments;
         $result = [

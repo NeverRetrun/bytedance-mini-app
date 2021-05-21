@@ -13,7 +13,7 @@ class CreateOrderRequest extends Request
         return CreateOrderResponse::createFromArray($response);
     }
 
-    public function sendRequest(...$arguments): array
+    public function sendRequest($arguments): array
     {
         [
             $outOrderNo,
