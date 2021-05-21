@@ -6,7 +6,7 @@ namespace BytedanceMiniApp\Support;
 
 class PKCS7Encoder
 {
-    public static int $blockSize = 32;
+    public static int $blockSize = 16;
 
     public static function encode(string $text): string
     {
@@ -30,6 +30,7 @@ class PKCS7Encoder
         if ($pad < 1 || $pad > self::$blockSize) {
             $pad = 0;
         }
+
         return substr($text, 0, (strlen($text) - $pad));
     }
 }

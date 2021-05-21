@@ -16,15 +16,16 @@ class AES
     public static function decrypt(
         string $cipherText,
         string $key,
-        string $iv,
+        string $iv
     ): string
     {
         return openssl_decrypt(
             $cipherText,
-            'aes-128-cbc',
+            'AES-128-CBC',
             $key,
-            OPENSSL_RAW_DATA,
+            OPENSSL_RAW_DATA | OPENSSL_ZERO_PADDING,
             $iv
         );
     }
+
 }
