@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
 
-namespace BytedanceMiniApp\Kernel;
+namespace BytedanceMiniApp\Kernel\Log;
 
 
 use BytedanceMiniApp\Kernel\Exceptions\Exception;

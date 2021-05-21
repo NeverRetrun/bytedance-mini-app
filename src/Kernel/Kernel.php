@@ -6,6 +6,7 @@ namespace BytedanceMiniApp\Kernel;
 
 use BytedanceMiniApp\Kernel\Exceptions\Exception;
 use BytedanceMiniApp\Kernel\Http\HttpClient;
+use BytedanceMiniApp\Kernel\Log\Logger;
 use Psr\Log\LoggerInterface;
 use Psr\SimpleCache\CacheInterface;
 
