@@ -7,7 +7,6 @@ namespace BytedanceMiniApp\Kernel\Http;
 use BytedanceMiniApp\Kernel\Config;
 use BytedanceMiniApp\Kernel\Exceptions\RequestException;
 use BytedanceMiniApp\Kernel\Kernel;
-use Psr\Http\Message\ResponseInterface;
 
 abstract class Request implements OpenApiInterface
 {
@@ -25,15 +24,28 @@ abstract class Request implements OpenApiInterface
     {
         $this->http   = $http;
         $this->config = $config;
-        $this->app = $app;
+        $this->app    = $app;
     }
 
     abstract public function sendRequest($arguments): array;
 
     public function handle(...$arguments): Response
     {
-        return $this->format(
-            $this->sendRequest(...$arguments)
-        );
+        $response = $this->sendRequest(...$arguments);
+        $this->assertRequestSuccess($response);
+
+        return $this->format($response);
+    }
+
+    /**
+     * assert request success
+     * @param array $response
+     * @throws RequestException
+     */
+    protected function assertRequestSuccess(array $response): void
+    {
+        if ($response['errcode'] !== 0) {
+            throw new RequestException($response['message']);
+        }
     }
 }
