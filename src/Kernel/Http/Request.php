@@ -33,7 +33,6 @@ abstract class Request implements OpenApiInterface
     {
         $response = $this->sendRequest(...$arguments);
         $this->assertRequestSuccess($response);
-
         return $this->format($response);
     }
 
@@ -44,7 +43,7 @@ abstract class Request implements OpenApiInterface
      */
     protected function assertRequestSuccess(array $response): void
     {
-        if ($response['errcode'] !== 0) {
+        if ($response['error'] !== 0) {
             throw new RequestException($response['message']);
         }
     }
