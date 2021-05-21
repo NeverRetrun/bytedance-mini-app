@@ -37,4 +37,14 @@ class Logger
     {
         $this->handler->error($message, $context);
     }
+
+    /**
+     * debug error message
+     * @param string $message
+     * @param array $context
+     */
+    public function debug(string $message, array $context = []): void
+    {
+        $this->handler->debug($message, $context);
+    }
 }

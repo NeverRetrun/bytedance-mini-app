@@ -32,6 +32,11 @@ abstract class Request implements OpenApiInterface
     public function handle(...$arguments): Response
     {
         $response = $this->sendRequest(...$arguments);
+
+        if ($this->app->isDebug()) {
+            $this->app->debug($response);
+        }
+
         $this->assertRequestSuccess($response);
         return $this->format($response);
     }
