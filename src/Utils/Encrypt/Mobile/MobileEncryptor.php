@@ -16,9 +16,10 @@ class MobileEncryptor implements HandlerInterface
         $this->encryptor = new Encryptor();
     }
 
-    public function handle(...$arguments)
+    public function handle($arguments)
     {
-        return $this->decrypt(...$arguments);
+        [$sessionKey, $iv, $encrypted] = $arguments;
+        return $this->decrypt($sessionKey, $iv, $encrypted);
     }
 
     /**

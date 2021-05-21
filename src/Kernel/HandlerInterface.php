@@ -9,5 +9,5 @@ interface HandlerInterface
     /**
      * @return mixed
      */
-    public function handle(...$arguments);
+    public function handle($arguments);
 }

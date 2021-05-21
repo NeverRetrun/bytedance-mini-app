@@ -9,10 +9,10 @@ use BytedanceMiniApp\Kernel\HandlerInterface;
 interface OpenApiInterface extends HandlerInterface
 {
     /**
-     * @param ...$arguments
+     * @param $arguments
      * @return Response
      */
-    public function handle(...$arguments): Response;
+    public function handle($arguments): Response;
 
     public function format(array $response): Response;
 }
