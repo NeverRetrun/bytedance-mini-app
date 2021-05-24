@@ -17,6 +17,8 @@ class NotifyHandler extends Handler
 
     public function process($arguments)
     {
+        $arguments = $arguments[0];
+
         $isValid = PaymentNotifySignature::valid($arguments['msg_signature'], $arguments, $this->config->token);
         if ($isValid === false) {
             throw new InvalidSignatureException();

@@ -32,7 +32,8 @@ class PaymentNotifySignature
             $notify['nonce'],
             $notify['msg'] ?? '',
         ];
-        sort($sortedString);
+
+        sort($sortedString, SORT_STRING);
         return sha1(implode('', $sortedString));
     }
 }
