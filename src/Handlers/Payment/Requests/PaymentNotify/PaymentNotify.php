@@ -37,10 +37,10 @@ class PaymentNotify
         string $cpExtra
     )
     {
-        $this->appId = $appId;
+        $this->appId     = $appId;
         $this->cpOrderNo = $cpOrderNo;
-        $this->way = $way;
-        $this->cpExtra = $cpExtra;
+        $this->way       = $way;
+        $this->cpExtra   = $cpExtra;
     }
 
     /**
@@ -63,5 +63,17 @@ class PaymentNotify
             $array['way'],
             $array['cp_extra'],
         );
+    }
+
+    /**
+     * 返回成功
+     * @return array
+     */
+    public function toSuccessResponse(): array
+    {
+        return [
+            "err_no" => 0,
+            "err_tips" => "success",
+        ];
     }
 }

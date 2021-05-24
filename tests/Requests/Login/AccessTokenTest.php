@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Login;
+namespace Tests\Requests\Login;
 
 use Tests\TestCase;
 
