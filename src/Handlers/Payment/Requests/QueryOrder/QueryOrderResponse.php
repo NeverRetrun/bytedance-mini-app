@@ -9,6 +9,18 @@ use BytedanceMiniApp\Kernel\Http\Response;
 class QueryOrderResponse extends Response
 {
     /**
+     * 状态
+     * PROCESSING-处理中
+     * SUCCESS-成功
+     * FAIL-失败
+     * TIMEOUT-超时
+     */
+    const PROCESSING = 'PROCESSING';
+    const SUCCESS = 'SUCCESS';
+    const FAIL = 'FAIL';
+    const TIMEOUT = 'TIMEOUT';
+
+    /**
      * 总金额 单位分
      * @var int
      */
@@ -63,13 +75,23 @@ class QueryOrderResponse extends Response
 
     public static function createFromArray(array $array)
     {
+        $paymentInfo = $array['payment_info'];
         return new static(
-            $array["total_fee"],
-            $array["order_status"],
-            $array["pay_time"],
-            $array["way"],
-            $array["channel_no"],
-            $array["channel_gateway_no"],
+            $paymentInfo["total_fee"],
+            $paymentInfo["order_status"],
+            $paymentInfo["pay_time"],
+            $paymentInfo["way"],
+            $paymentInfo["channel_no"],
+            $paymentInfo["channel_gateway_no"],
         );
+    }
+
+    /**
+     * 判断是否支付成功
+     * @return bool
+     */
+    public function isSuccess(): bool
+    {
+        return $this->orderStatus === self::SUCCESS;
     }
 }

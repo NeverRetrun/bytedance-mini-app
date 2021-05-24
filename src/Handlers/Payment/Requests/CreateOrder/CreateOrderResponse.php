@@ -29,6 +29,6 @@ class CreateOrderResponse extends Response
 
     public static function createFromArray(array $array)
     {
-        return new static($array['order_id'], $array['order_token']);
+        return new static($array['data']['order_id'], $array['data']['order_token']);
     }
 }

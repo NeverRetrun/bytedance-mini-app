@@ -14,5 +14,5 @@ interface OpenApiInterface extends HandlerInterface
      */
     public function handle($arguments): Response;
 
-    public function format(array $response): Response;
+    public static function format(array $response): Response;
 }

@@ -20,8 +20,6 @@ class Kernel
 
     protected ?CacheInterface $cache;
 
-    protected bool $isDebug = false;
-
     public function __construct(HttpClient $client, Config $config)
     {
         $this->client = $client;
@@ -34,7 +32,7 @@ class Kernel
      */
     public function getAccessToken(): string
     {
-        return (new \BytedanceMiniApp\Handlers\Login\Manager($this))
+        return \BytedanceMiniApp\Handlers\Login\Manager::createFromKernel($this)
             ->accessToken()
             ->accessToken;
     }
@@ -45,9 +43,9 @@ class Kernel
      */
     public function withLoggerFormLoggerInterface(?LoggerInterface $logger): Kernel
     {
-        if ($logger !== null) {
-            $this->logger = new Logger($logger);
-        }
+        $this->logger = $logger !== null
+            ? new Logger($logger)
+            : null;
 
         return $this;
     }
@@ -60,21 +58,6 @@ class Kernel
     {
         $this->cache = $cache;
         return $this;
-    }
-
-    /**
-     * @param Exception $exception
-     */
-    public function log(Exception $exception): void
-    {
-        if (isset($this->logger)) {
-            $this->logger->errorFromException($exception);
-        }
-    }
-
-    public function debug(array $message):void
-    {
-        $this->logger->debug(json_encode($message));
     }
 
     /**
@@ -99,23 +82,5 @@ class Kernel
     public function getConfig(): Config
     {
         return $this->config;
-    }
-
-    /**
-     * enable debug
-     * @return $this
-     */
-    public function enableDebug(): Kernel
-    {
-        $this->isDebug = true;
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isDebug(): bool
-    {
-        return $this->isDebug;
     }
 }

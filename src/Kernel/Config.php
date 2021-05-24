@@ -18,12 +18,37 @@ class Config
      */
     public string $secret;
 
+    /**
+     * debug mode
+     * if enable debug can log response
+     * @var bool
+     */
+    public bool $isDebug;
+
+    /**
+     * payment salt
+     * @var string
+     */
+    public string $salt;
+
+    /**
+     * payment token
+     * @var string
+     */
+    public string $token;
+
     public function __construct(
         string $appId,
-        string $secret
+        string $secret,
+        string $salt,
+        string $token,
+        bool $isDebug = false
     )
     {
-        $this->appId = $appId;
-        $this->secret = $secret;
+        $this->appId   = $appId;
+        $this->secret  = $secret;
+        $this->salt = $salt;
+        $this->token = $token;
+        $this->isDebug = $isDebug;
     }
 }

@@ -15,7 +15,7 @@ use BytedanceMiniApp\Handlers\Payment\Requests\QueryOrder\QueryOrderResponse;
  */
 class Manager extends \BytedanceMiniApp\Kernel\Manager
 {
-    public function getClassMap(): array
+    protected function getClassMap(): array
     {
         return [
             'createOrder' => CreateOrderRequest::class,

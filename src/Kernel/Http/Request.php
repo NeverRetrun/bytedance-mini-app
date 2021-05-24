@@ -4,41 +4,24 @@
 namespace BytedanceMiniApp\Kernel\Http;
 
 
-use BytedanceMiniApp\Kernel\Config;
 use BytedanceMiniApp\Kernel\Exceptions\RequestException;
-use BytedanceMiniApp\Kernel\Kernel;
+use BytedanceMiniApp\Kernel\Handler;
 
-abstract class Request implements OpenApiInterface
+abstract class Request extends Handler implements OpenApiInterface
 {
-    protected HttpClient $http;
-
-    protected Config $config;
-
-    protected Kernel $app;
-
-    public function __construct(
-        HttpClient $http,
-        Config $config,
-        Kernel $app
-    )
-    {
-        $this->http   = $http;
-        $this->config = $config;
-        $this->app    = $app;
-    }
-
     abstract public function sendRequest($arguments): array;
 
     public function handle($arguments): Response
     {
         $response = $this->sendRequest($arguments);
 
-        if ($this->app->isDebug()) {
-            $this->app->debug($response);
+        if ($this->config->isDebug) {
+            $this->logger->debug(json_encode($response));
         }
 
         $this->assertRequestSuccess($response);
-        return $this->format($response);
+
+        return static::format($response);
     }
 
     /**
@@ -48,8 +31,11 @@ abstract class Request implements OpenApiInterface
      */
     protected function assertRequestSuccess(array $response): void
     {
-        if ($response['error'] !== 0) {
-            throw new RequestException($response['message']);
+        $errorCode =  $response['error'] ?? $response['err_no'];
+        $errMsg = $response['message'] ?? $response['err_tips'];
+
+        if ($errorCode !== 0) {
+            throw new RequestException($errMsg);
         }
     }
 }

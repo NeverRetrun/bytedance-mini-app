@@ -20,11 +20,14 @@ class RequestSigner
                 continue;
             }
 
-            $filtered[] = trim($value);
+            $filtered[] =
+                is_string($value)
+                    ? trim($value)
+                    : $value;
         }
 
         $filtered[] = trim($secret);
-        sort($filtered,SORT_STRING);
+        sort($filtered, SORT_STRING);
         return md5(trim(implode('&', $filtered)));
     }
 }

@@ -13,7 +13,7 @@ use BytedanceMiniApp\Handlers\Login\Requests\Code2Session\Code2SessionResponse;
  */
 class Manager extends \BytedanceMiniApp\Kernel\Manager
 {
-    public function getClassMap(): array
+    protected function getClassMap(): array
     {
         return [
             'accessToken' => AccessToken\AccessTokenRequest::class,

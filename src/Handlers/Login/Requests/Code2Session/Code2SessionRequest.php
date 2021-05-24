@@ -2,12 +2,13 @@
 
 namespace BytedanceMiniApp\Handlers\Login\Requests\Code2Session;
 
+use BytedanceMiniApp\Kernel\Http\HttpClient;
 use BytedanceMiniApp\Kernel\Http\Request;
 use BytedanceMiniApp\Kernel\Http\Response;
 
 class Code2SessionRequest extends Request
 {
-    public function format(array $response): Response
+    public static function format(array $response): Response
     {
         return Code2SessionResponse::createFromArray($response);
     }

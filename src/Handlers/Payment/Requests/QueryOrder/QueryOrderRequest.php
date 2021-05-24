@@ -10,7 +10,7 @@ use BytedanceMiniApp\Utils\Encrypt\Payment\RequestSigner;
 
 class QueryOrderRequest extends Request
 {
-    public function format(array $response): Response
+    public static function format(array $response): Response
     {
         return QueryOrderResponse::createFromArray($response);
     }
@@ -24,7 +24,7 @@ class QueryOrderRequest extends Request
             'thirdparty_id' => $thirdPartyId,
         ];
         $result = array_filter($result);
-        $result['sign'] = RequestSigner::signature($result, $this->config->secret);
+        $result['sign'] = RequestSigner::signature($result, $this->config->salt);
 
         return $this->http->post(
             'https://developer.toutiao.com/api/apps/ecpay/v1/query_order',

@@ -14,6 +14,7 @@ use Psr\SimpleCache\CacheInterface;
 
 /**
  * @property-read \BytedanceMiniApp\Handlers\Login\Manager $login
+ * @property-read \BytedanceMiniApp\Handlers\Payment\Manager $payment
  * @property-read \BytedanceMiniApp\Utils\Encrypt\Manager $encrypt
  * @package BytedanceMiniApp
  */
@@ -22,6 +23,7 @@ class BytedanceMiniApp
     protected array $classMap = [
         'login' => \BytedanceMiniApp\Handlers\Login\Manager::class,
         'encrypt' => \BytedanceMiniApp\Utils\Encrypt\Manager::class,
+        'payment' => \BytedanceMiniApp\Handlers\Payment\Manager::class,
     ];
 
     protected array $objectPool = [];
@@ -31,6 +33,8 @@ class BytedanceMiniApp
     public function __construct(
         string $appId,
         string $secret,
+        string $salt,
+        string $token,
         ?LoggerInterface $logger = null,
         ?CacheInterface $cache = null,
         bool $isDebug = false
@@ -38,14 +42,16 @@ class BytedanceMiniApp
     {
         $this->kernel = (new Kernel(
             new HttpClient(),
-            new Config($appId, $secret)
+            new Config(
+                $appId,
+                $secret,
+                $salt,
+                $token,
+                $isDebug
+            )
         ))
             ->withLoggerFormLoggerInterface($logger)
             ->withCache($cache);
-
-        if ($isDebug) {
-            $this->kernel->enableDebug();
-        }
     }
 
     protected function getInstance(string $name): Manager

@@ -8,7 +8,8 @@ use BytedanceMiniApp\Kernel\Http\Response;
 
 class AccessTokenRequest extends Request
 {
-    public function format(array $response): Response
+
+    public static function format(array $response): Response
     {
         return AccessTokenResponse::createFromArray($response);
     }

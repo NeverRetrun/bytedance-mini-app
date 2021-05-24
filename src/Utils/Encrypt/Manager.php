@@ -13,7 +13,7 @@ use BytedanceMiniApp\Utils\Encrypt\Mobile\MobileEncryptor;
  */
 class Manager extends \BytedanceMiniApp\Kernel\Manager
 {
-    public function getClassMap(): array
+    protected function getClassMap(): array
     {
         return [
             'mobile' => MobileEncryptor::class,

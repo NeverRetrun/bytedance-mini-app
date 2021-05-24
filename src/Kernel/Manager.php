@@ -7,33 +7,52 @@ namespace BytedanceMiniApp\Kernel;
 use BytedanceMiniApp\Kernel\Exceptions\Exception;
 use BytedanceMiniApp\Kernel\Http\HttpClient;
 use BytedanceMiniApp\Kernel\Http\OpenApiInterface;
+use BytedanceMiniApp\Kernel\Log\Logger;
 
 abstract class Manager
 {
-    protected Kernel $kernel;
+    protected HttpClient $http;
 
-    public function __construct(Kernel $kernel)
+    protected Config $config;
+
+    protected ?Logger $logger;
+
+    public function __construct(
+        HttpClient $http,
+        Config $config,
+        ?Logger $logger
+    )
     {
-        $this->kernel = $kernel;
+        $this->http   = $http;
+        $this->config = $config;
+        $this->logger = $logger;
     }
 
+    /**
+     * @param Kernel $kernel
+     * @return static
+     */
     public static function createFromKernel(Kernel $kernel)
     {
-        return new static($kernel);
+        return new static(
+            $kernel->getClient(),
+            $kernel->getConfig(),
+            $kernel->getLogger(),
+        );
     }
 
     /**
      * @return array
      */
-    abstract public function getClassMap(): array;
+    abstract protected function getClassMap(): array;
 
     public function __call($name, $arguments)
     {
         $classMap = $this->getClassMap();
         $handler  = new $classMap[$name](
-            $this->kernel->getClient(),
-            $this->kernel->getConfig(),
-            $this->kernel
+            $this->http,
+            $this->config,
+            $this->logger
         );
 
         try {
@@ -43,7 +62,9 @@ abstract class Manager
                 return $handler->handle($arguments);
             }
         }catch (Exception $exception) {
-            $this->kernel->log($exception);
+            if ($this->logger !== null) {
+                $this->logger->errorFromException($exception);
+            }
             throw $exception;
         }
     }

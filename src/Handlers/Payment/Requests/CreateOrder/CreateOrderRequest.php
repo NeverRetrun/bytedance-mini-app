@@ -8,7 +8,7 @@ use BytedanceMiniApp\Utils\Encrypt\Payment\RequestSigner;
 
 class CreateOrderRequest extends Request
 {
-    public function format(array $response): Response
+    public static function format(array $response): Response
     {
         return CreateOrderResponse::createFromArray($response);
     }
@@ -45,7 +45,8 @@ class CreateOrderRequest extends Request
         ];
 
         $params = array_filter($params);
-        $params['sing'] = RequestSigner::signature($params, $this->config->secret);
+        $params['sign'] = RequestSigner::signature($params, $this->config->salt);
+//        var_dump($params);die;
         return $this->http->post(
             'https://developer.toutiao.com/api/apps/ecpay/v1/create_order',
             $params

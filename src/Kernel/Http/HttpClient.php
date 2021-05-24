@@ -37,13 +37,14 @@ class HttpClient
      */
     public function post(string $uri, array $params = [], array $headers = []): array
     {
-        $headers[] = 'content-type: application/json';
+        $headers[] = 'Content-type: application/json';
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $uri);
+        curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
 
         $output = curl_exec($ch);
         curl_close($ch);
