@@ -14,7 +14,7 @@
 ### Installation
 
 ---
-> $ composer require cvoid/bytedance-mini-app  -vvv
+> $ composer require cvoid/bytedance-mini-app -vvv
 
 ### Features
 
@@ -42,7 +42,6 @@
 | 服务商进件| | |
 | 分账方进件| | |
 
-
 ### Usage
 
 ---
@@ -50,7 +49,7 @@
 ```php
 require 'vendor/autoload.php';
 
-$app = new \BytedanceMiniApp\BytedanceMiniApp('appId','secret',);
+$app = new \BytedanceMiniApp\BytedanceMiniApp('appId', 'secret', 'salt', 'token');
 
 $response = $app
     ->login
