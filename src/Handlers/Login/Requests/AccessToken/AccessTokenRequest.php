@@ -8,6 +8,10 @@ use BytedanceMiniApp\Kernel\Http\Response;
 
 class AccessTokenRequest extends Request
 {
+    protected function getParamNameWithDefault(): array
+    {
+        return [];
+    }
 
     public static function format(array $response): Response
     {

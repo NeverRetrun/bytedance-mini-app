@@ -8,6 +8,56 @@ use BytedanceMiniApp\Utils\Encrypt\Payment\RequestSigner;
 
 class CreateOrderRequest extends Request
 {
+    protected function getParamNameWithDefault(): array
+    {
+        return [
+            [
+                'name' => 'outOrderNo',
+                'default' => '',
+            ],
+            [
+                'name' => 'totalAmount',
+                'default' => 0,
+            ],
+            [
+                'name' => 'subject',
+                'default' => '',
+            ],
+            [
+                'name' => 'body',
+                'default' => '',
+            ],
+            [
+                'name' => 'validTimestamp',
+                'default' => 0,
+            ],
+            [
+                'name' => 'cpExtra',
+                'default' => null,
+            ],
+            [
+                'name' => 'notifyUrl',
+                'default' => null,
+            ],
+            [
+                'name' => 'thirdPartyId',
+                'default' => null,
+            ],
+            [
+                'name' => 'disableMsg',
+                'default' => null,
+            ],
+            [
+                'name' => 'msgPage',
+                'default' => null,
+            ],
+            [
+                'name' => 'storeUid',
+                'default' => null,
+            ],
+        ];
+    }
+
     public static function format(array $response): Response
     {
         return CreateOrderResponse::createFromArray($response);

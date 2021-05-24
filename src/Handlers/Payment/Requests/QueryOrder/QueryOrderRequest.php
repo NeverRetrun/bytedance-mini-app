@@ -10,6 +10,20 @@ use BytedanceMiniApp\Utils\Encrypt\Payment\RequestSigner;
 
 class QueryOrderRequest extends Request
 {
+    protected function getParamNameWithDefault(): array
+    {
+        return [
+            [
+                'name' => 'outOrderNo',
+                'default' => null,
+            ],
+            [
+                'name' => 'thirdPartyId',
+                'default' => null,
+            ],
+        ];
+    }
+
     public static function format(array $response): Response
     {
         return QueryOrderResponse::createFromArray($response);

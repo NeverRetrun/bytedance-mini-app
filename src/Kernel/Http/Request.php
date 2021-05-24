@@ -13,6 +13,11 @@ abstract class Request extends Handler implements OpenApiInterface
 
     public function handle($arguments): Response
     {
+        return parent::handle($arguments);
+    }
+
+    public function process($arguments): Response
+    {
         $response = $this->sendRequest($arguments);
 
         if ($this->config->isDebug) {

@@ -10,7 +10,12 @@ use BytedanceMiniApp\Support\PaymentNotifySignature;
 
 class NotifyHandler extends Handler
 {
-    public function handle($arguments)
+    protected function getParamNameWithDefault(): array
+    {
+        return [];
+    }
+
+    public function process($arguments)
     {
         $isValid = PaymentNotifySignature::valid($arguments['msg_signature'], $arguments, $this->config->token);
         if ($isValid === false) {

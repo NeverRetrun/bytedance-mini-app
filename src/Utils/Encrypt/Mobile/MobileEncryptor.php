@@ -4,10 +4,11 @@
 namespace BytedanceMiniApp\Utils\Encrypt\Mobile;
 
 
+use BytedanceMiniApp\Kernel\Handler;
 use BytedanceMiniApp\Kernel\HandlerInterface;
 use BytedanceMiniApp\Utils\Encrypt\Encryptor;
 
-class MobileEncryptor implements HandlerInterface
+class MobileEncryptor extends Handler
 {
     protected Encryptor $encryptor;
 
@@ -16,7 +17,7 @@ class MobileEncryptor implements HandlerInterface
         $this->encryptor = new Encryptor();
     }
 
-    public function handle($arguments)
+    public function process($arguments)
     {
         [$sessionKey, $iv, $encrypted] = $arguments;
         return $this->decrypt($sessionKey, $iv, $encrypted);
@@ -43,5 +44,10 @@ class MobileEncryptor implements HandlerInterface
                 $encrypted
             )
         );
+    }
+
+    protected function getParamNameWithDefault(): array
+    {
+        return [];
     }
 }
