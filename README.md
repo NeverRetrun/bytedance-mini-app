@@ -14,8 +14,10 @@
 ### Installation
 
 ---
-> $ composer require cvoid/bytedance-mini-app -vvv
 
+```shell
+ $ composer require cvoid/bytedance-mini-app -vvv
+```
 ### Features
 
 ---
@@ -30,9 +32,9 @@
 | 内容安全检测|  | |
 | 图片检测 V2|  | |
 | 订阅消息推送 |  | |
-| 服务端预下单 | payment->createOrder | ☑️|
-| 服务端支付回调 | payment->notify | ☑️|
-| 订单查询| payment->queryOrder | ☑️|
+| 服务端预下单 | payment->createOrder | ☑️ |
+| 服务端支付回调 | payment->notify | ☑️ |
+| 订单查询| payment->queryOrder | ☑️ |
 | 退款| | |
 | 退款回调| | |
 | 查询退款| | |

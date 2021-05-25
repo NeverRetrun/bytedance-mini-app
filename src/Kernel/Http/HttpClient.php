@@ -4,6 +4,7 @@
 namespace BytedanceMiniApp\Kernel\Http;
 
 
+use BytedanceMiniApp\Utils\Encrypt\Payment\RequestSigner;
 use Psr\Http\Client\ClientInterface;
 
 class HttpClient
@@ -13,11 +14,11 @@ class HttpClient
      * @param string $uri
      * @param array $queries
      * @param array $headers
-     * @return string
+     * @return array
      */
     public function get(string $uri, array $queries = [], array $headers = []): array
     {
-        $ch = curl_init();
+        $ch    = curl_init();
         $query = http_build_query($queries);
         curl_setopt($ch, CURLOPT_URL, "$uri?$query");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -50,5 +51,24 @@ class HttpClient
         curl_close($ch);
 
         return json_decode($output, true);
+    }
+
+    /**
+     * @param string $salt
+     * @param string $uri
+     * @param array $params
+     * @param array $headers
+     * @return array
+     */
+    public function postWithPaymentSignature(
+        string $salt,
+        string $uri,
+        array $params = [],
+        array $headers = []
+    ): array
+    {
+        $params = array_filter($params);
+        $params['sign'] = RequestSigner::signature($params, $salt);
+        return self::post($uri, $params, $headers);
     }
 }
