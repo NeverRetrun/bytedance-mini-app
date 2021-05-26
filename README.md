@@ -8,7 +8,7 @@
 
 ---
 
-* PHP >= 7.2
+* PHP >= 7.4
 * [Composer](https://getcomposer.org/)
 
 ### Installation
@@ -35,9 +35,9 @@
 | 服务端预下单 | payment->createOrder | ☑️ |
 | 服务端支付回调 | payment->notify | ☑️ |
 | 订单查询| payment->queryOrder | ☑️ |
-| 退款| | |
-| 退款回调| | |
-| 查询退款| | |
+| 退款| payment->createRefund | ☑️|
+| 退款回调| payment->refundNotify | ☑️|
+| 查询退款| payment->queryRefund | ☑️|
 | 分账| | |
 | 分账回调| | |
 | 查询分账| | |

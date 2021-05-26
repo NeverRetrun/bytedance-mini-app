@@ -36,8 +36,8 @@ abstract class Request extends Handler implements OpenApiInterface
      */
     protected function assertRequestSuccess(array $response): void
     {
-        $errorCode =  $response['error'] ?? $response['err_no'];
-        $errMsg = $response['message'] ?? $response['err_tips'];
+        $errorCode =  $response['error'] ?? $response['err_no'] ?? 0;
+        $errMsg = $response['message'] ?? $response['err_tips'] ?? '';
 
         if ($errorCode !== 0) {
             throw new RequestException($errMsg);

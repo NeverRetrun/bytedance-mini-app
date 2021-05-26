@@ -37,11 +37,12 @@ class BytedanceMiniApp
         string $token,
         ?LoggerInterface $logger = null,
         ?CacheInterface $cache = null,
-        bool $isDebug = false
+        bool $isDebug = false,
+        HttpClient $http = null
     )
     {
         $this->kernel = (new Kernel(
-            new HttpClient(),
+            $http ?? new HttpClient(),
             new Config(
                 $appId,
                 $secret,

@@ -27,20 +27,20 @@ class QueryRefundRequest extends Request
 
     public static function format(array $response): Response
     {
-        return QueryOrderResponse::createFromArray($response);
+        return QueryRefundResponse::createFromArray($response);
     }
 
     public function sendRequest($arguments): array
     {
         [
             $outRefundNo,
-            $thirdpartyId,
+            $thirdPartyId,
         ] = $arguments;
 
         $params = [
             'app_id' => $this->config->appId,
             'out_refund_no' => $outRefundNo,
-            'thirdparty_id' => $thirdpartyId,
+            'thirdparty_id' => $thirdPartyId,
         ];
 
         $params = array_filter($params);
